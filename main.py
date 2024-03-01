@@ -111,10 +111,8 @@ while running:
             draw_pipe(pipes[i][0], pipes[i][1], pipes[i][2])
 
             if bird_height < pipes[i][1] * tile_height and abs(pipes[i][0] - screen.get_width()/2) < 1:
-                print(str(tiles_height) + "-" + str(bird_height) +  "<" + str(pipes[i][1]) + "*" + str(tile_height) + "and" +  str(abs(pipes[i][0] - screen.get_width()/2)) + "< 1")
                 game_over()
             elif bird_height > pipes[i][2] * tile_height and abs(pipes[i][0] - screen.get_width()/2) < 1:
-                print(str(bird_height) + ">" + str(pipes[i][2]) + "*" + str(tile_height) + "and" + str(abs(pipes[i][0] - screen.get_width() / 2)) + "< 1")
                 game_over()
             elif abs(pipes[i][0] - screen.get_width()/2) < 1:
                 score += 1

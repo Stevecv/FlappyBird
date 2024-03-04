@@ -66,8 +66,9 @@ pipes = []
 
 def add_pipe():
     gap = random.randint(5,10)
+    add_score = 1
     if len(pipes) == 0:
-        pipes.append((width, 5, 5+gap))
+        pipes.append((width, 5, 5+gap, add_score))
     else:
         last_pipe = pipes[len(pipes)-1]
 
@@ -77,7 +78,7 @@ def add_pipe():
 
         top_height = bottom_height+gap
 
-        pipes.append((width, bottom_height, top_height))
+        pipes.append((width, bottom_height, top_height, add_score))
 
 
 delta_time = 0
@@ -107,16 +108,22 @@ while running:
             pipe_timer = time.time()
 
         for i in range(0, len(pipes)-1):
-            pipes[i] = (pipes[i][0] + (-90 * delta_time), pipes[i][1], pipes[i][2])
+            pipes[i] = (pipes[i][0] + (-90 * delta_time), pipes[i][1], pipes[i][2], pipes[i][3])
             draw_pipe(pipes[i][0], pipes[i][1], pipes[i][2])
 
-            if bird_height < pipes[i][1] * tile_height and abs(pipes[i][0] - screen.get_width()/2) < 1:
+            if bird_height < pipes[i][1] * tile_height and abs(pipes[i][0] - screen.get_width()/2) < 0.25:
                 game_over()
-            elif bird_height > pipes[i][2] * tile_height and abs(pipes[i][0] - screen.get_width()/2) < 1:
+            elif bird_height > pipes[i][2] * tile_height and abs(pipes[i][0] - screen.get_width()/2) < 0.25:
+                game_over()
+            elif bird_height > screen.get_height():
+                game_over()
+            elif bird_height < 0:
                 game_over()
             elif abs(pipes[i][0] - screen.get_width()/2) < 1:
-                score += 1
+                score += pipes[i][3]
+                pipes[i] = (pipes[i][0], pipes[i][1], pipes[i][2], 0)
 
+            print(bird_height)
 
             if pipes[i][0] < -tile_width:
                 pipes.remove(pipes[i])

@@ -123,8 +123,6 @@ while running:
                 score += pipes[i][3]
                 pipes[i] = (pipes[i][0], pipes[i][1], pipes[i][2], 0)
 
-            print(bird_height)
-
             if pipes[i][0] < -tile_width:
                 pipes.remove(pipes[i])
 
